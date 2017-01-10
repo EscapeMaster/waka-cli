@@ -62,6 +62,7 @@ process.on('exit', () => log.tips());
 let template = program.args[0];
 let projectDirName = program.args[1];
 let isCurrentDir = !projectDirName || projectDirName === '.';
+let projectName = isCurrentDir ? path.relative('../', process.cwd()) : projectDirName;
 let clone = program.clone || false;
 let projectDirPath = path.resolve(projectDirName || '.');
 
@@ -110,6 +111,11 @@ function downloadAndGenerate (template){
         spinner.text = chalk.green(`${template} downloaded success`);
         spinner.succeed();
         log.tips();
-        generate();
+
+        generate(projectName,tmp,projectDirPath, (err) => {
+            if(err){
+                log.error(err);
+            }
+        });
     });
 }
