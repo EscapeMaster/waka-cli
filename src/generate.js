@@ -7,12 +7,11 @@ let ora = require('ora');
 let async = require('async');
 let render = require('consolidate').handlebars.render;
 let path = require('path');
+let chalk = require('chalk');
 
 let log = require('../src/log');
 
 module.exports = function (projectName, src, dest, done) {
-    log.tips(`generate params: ${projectName},${src},${dest},${done}`);
-
     let spinner = ora({
         text: "generate project...",
         color:"blue"

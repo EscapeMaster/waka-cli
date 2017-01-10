@@ -46,6 +46,7 @@ module.exports = function (template,officialTemplate,done){
                 log.tips('Please visit https://github.com/waka-templates to find the template you want.');
             }
         } else {
+            log.tips();
             log.error(requestBody.message);
         }
     });
