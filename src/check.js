@@ -28,8 +28,9 @@ module.exports = function (template,officialTemplate,done){
             spinner.fail();
             process.exit(1);
         }
-        spinner.text = chalk.green('Template checked success');
+        spinner.text = chalk.green('Template checked success.');
         spinner.succeed();
+
         let requestBody = JSON.parse(body);
         if (Array.isArray(requestBody)) {
             let reposName = [];
