@@ -1,0 +1,1 @@
+A simple CLI for scaffolding front-end projects,inspired by [vue-cli](https://github.com/vuejs/vue-cli/)
