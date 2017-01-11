@@ -2,7 +2,6 @@
   "name": "@mx/waka",
   "version": "1.0.0",
   "description": "A simple CLI for scaffolding front-end projects.",
-  "private": true,
   "bin": {
     "chare": "bin/waka",
     "chare-init": "bin/waka-init",
