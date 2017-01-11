@@ -1,11 +1,11 @@
 {
   "name": "@mx/waka",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple CLI for scaffolding front-end projects.",
   "bin": {
-    "chare": "bin/waka",
-    "chare-init": "bin/waka-init",
-    "chare-list": "bin/waka-list"
+    "waka": "bin/waka",
+    "waka-init": "bin/waka-init",
+    "waka-list": "bin/waka-list"
   },
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
     "scaffold",
     "front end scaffold"
   ],
-  "author": "xm",
+  "author": "mx",
   "license": "MIT",
   "bugs": {
     "url": "http://git.sankuai.com/projects/XM/repos/waka-cli/browse"
