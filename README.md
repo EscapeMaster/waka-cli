@@ -15,7 +15,7 @@ npm install @mx/waka -g --registry=http://r.npm.sankuai.com
 ### Command
 
 * `waka` or `waka -h` --- find help for waka.
-* `waka list` --- list all templates from [waka-templates](https://github.com/waka-templates).
+* `waka list` --- list all available official templates from [waka-templates](https://github.com/waka-templates).
 * `waka init template-name your-project-name` --- init your project with specified template.
 
 ### Note
