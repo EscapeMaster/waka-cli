@@ -3,6 +3,7 @@
 let chalk = require('chalk');
 let ora = require('ora');
 let request = require('request');
+let program = require('commander');
 
 let log = require('../src/log');
 
@@ -19,6 +20,22 @@ let spinner = ora({
 process.on('exit', function () {
     log.tips();
 });
+
+/**
+ * Help.
+ */
+
+program.on('--help', function () {
+    log.tips('  Examples:');
+    log.tips();
+    log.tips(chalk.gray('    # list all templates from github.com/waka-templates'));
+    log.tips('    $ waka list');
+    log.tips();
+});
+
+if(process.argv[2]){
+    program.help();
+}
 
 /**
  * List repos.
