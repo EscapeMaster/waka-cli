@@ -14,7 +14,7 @@ var Tunnel = function(opt) {
     self._closed = false;
     self._opt = opt || {};
 
-    self._opt.host = self._opt.host || 'https://localtunnel.me';
+    self._opt.host = self._opt.host || 'http://tunnel.neixin.cn';
 };
 
 Tunnel.prototype.__proto__ = EventEmitter.prototype;
@@ -50,7 +50,7 @@ Tunnel.prototype._init = function(cb) {
             }
 
             if (res.statusCode !== 200) {
-                var err = new Error((body && body.message) || 'localtunnel server returned an error, please try again');
+                var err = new Error((body && body.message) || 'neixin tunnel server returned an error, please try again');
                 return cb(err);
             }
 
@@ -74,7 +74,7 @@ Tunnel.prototype._establish = function(info) {
     var self = this;
     var opt = self._opt;
     
-    // increase max event listeners so that localtunnel consumers don't get
+    // increase max event listeners so that nx-tunnel consumers don't get
     // warning messages as soon as they setup even one listener. See #71
     self.setMaxListeners(info.max_conn + (EventEmitter.defaultMaxListeners || 10));
 
