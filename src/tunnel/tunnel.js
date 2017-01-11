@@ -19,8 +19,7 @@ var Tunnel = function(opt) {
 
 Tunnel.prototype.__proto__ = EventEmitter.prototype;
 
-// initialize connection
-// callback with connection info
+// 初始化 链接
 Tunnel.prototype._init = function(cb) {
     var self = this;
     var opt = self._opt;
