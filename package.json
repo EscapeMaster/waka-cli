@@ -1,5 +1,5 @@
 {
-  "name": "waka",
+  "name": "@mx/waka",
   "version": "0.0.1",
   "description": "A simple CLI for scaffolding front-end projects.",
   "private": true,
