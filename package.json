@@ -5,7 +5,8 @@
   "bin": {
     "waka": "bin/waka",
     "waka-init": "bin/waka-init",
-    "waka-list": "bin/waka-list"
+    "waka-list": "bin/waka-list",
+    "waka-tunnel": "bin/waka-tunnel"
   },
   "repository": {
     "type": "git",
@@ -45,7 +46,9 @@
     "semver": "^5.3.0",
     "uid": "0.0.2",
     "validate-npm-package-name": "^2.2.2",
-    "commander": "^2.9.0"
+    "commander": "^2.9.0",
+    "openurl": "1.1.1"
+
   },
   "devDependencies": {
     "babel-core": "^6.7.4",
