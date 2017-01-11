@@ -1,6 +1,6 @@
 {
   "name": "@mx/waka",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A simple CLI for scaffolding front-end projects.",
   "private": true,
   "bin": {
@@ -20,9 +20,9 @@
   "author": "xm",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dwqs/chare/issues"
+    "url": "http://git.sankuai.com/projects/XM/repos/waka-cli/browse"
   },
-  "homepage": "https://github.com/dwqs/chare#readme",
+  "homepage": "http://git.sankuai.com/projects/XM/repos/waka-cli/browse#readme",
   "main": "src/index.js",
   "scripts": {
     "test": "npm run lint && npm run e2e",
