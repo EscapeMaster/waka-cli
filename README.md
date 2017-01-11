@@ -18,7 +18,9 @@ npm install @mx/waka -g --registry=http://r.npm.sankuai.com
 * `waka list` --- list all templates from [waka-templates](https://github.com/waka-templates).
 * `waka init template-name your-project-name` --- init your project with specified template.
 
+### Note
 
+Waka currently is developing, don't use it in production.
 
 
 
