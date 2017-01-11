@@ -35,20 +35,21 @@ module.exports = function (template,officialTemplate,done){
 
         let requestBody = JSON.parse(body);
         if (Array.isArray(requestBody)) {
-            spinner.text = chalk.green('Template checked success.');
-            spinner.succeed();
-
             let reposName = [];
             requestBody.forEach(function (repo) {
                 reposName.push(repo.name);
             });
             if(reposName.indexOf(template) > -1){
+                spinner.text = chalk.green('Template checked success.');
+                spinner.succeed();
+                log.tips();
                 log.tips();
                 done(officialTemplate);
             } else {
-                log.error(`Failed to download template ${chalk.blue(template)}: ${chalk.blue(template)} doesn\'t exist`);
+                spinner.stop();
+                log.tips(`Failed to download template ${chalk.red(template)}: ${chalk.red(template)} doesn\'t exist.`);
                 log.tips();
-                log.tips('Please visit https://github.com/waka-templates to find the template you want.');
+                log.tips(`Please check all available official templates by ${chalk.blue('waka list')} in terminal.`);
             }
         } else {
             spinner.text = chalk.white('waka cli:checking template failed,error message as follows:');

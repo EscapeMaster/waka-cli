@@ -95,7 +95,7 @@ if(exists(projectDirPath)){
 function downloadAndGenerate (template){
     let tmp = os.tmpdir() + '/chare-template-' + uid();
     let spinner = ora({
-        text:`downloading template: ${template}`,
+        text:`start downloading template: ${template}`,
         color:"blue"
     }).start();
 
