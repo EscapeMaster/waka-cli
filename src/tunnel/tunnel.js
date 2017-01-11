@@ -31,25 +31,21 @@ Tunnel.prototype._init = function(cb) {
 
     var base_uri = opt.host + '/';
 
-    // optionally override the upstream server
     var upstream = url.parse(opt.host);
 
-    // no subdomain at first, maybe use requested domain
     var assigned_domain = opt.subdomain;
 
-    // where to quest
     params.uri = base_uri + ((assigned_domain) ? assigned_domain : '?new');
 
     (function get_url() {
         request(params, function(err, res, body) {
             if (err) {
-                // TODO (shtylman) don't print to stdout?
                 console.log('tunnel server offline: ' + err.message + ', retry 1s');
                 return setTimeout(get_url, 1000);
             }
 
             if (res.statusCode !== 200) {
-                var err = new Error((body && body.message) || 'neixin tunnel server returned an error, please try again');
+                var err = new Error((body && body.message) || 'neixin tunnel server returned an unknow error, please try again');
                 return cb(err);
             }
 
@@ -73,8 +69,6 @@ Tunnel.prototype._establish = function(info) {
     var self = this;
     var opt = self._opt;
     
-    // increase max event listeners so that nx-tunnel consumers don't get
-    // warning messages as soon as they setup even one listener. See #71
     self.setMaxListeners(info.max_conn + (EventEmitter.defaultMaxListeners || 10));
 
     info.local_host = opt.local_host;
@@ -82,7 +76,7 @@ Tunnel.prototype._establish = function(info) {
 
     var tunnels = self.tunnel_cluster = TunnelCluster(info);
 
-    // only emit the url the first time
+   //首次 就只是 emit一个url
     tunnels.once('open', function() {
         self.emit('url', info.url);
     });
@@ -94,7 +88,7 @@ Tunnel.prototype._establish = function(info) {
 
     var tunnel_count = 0;
 
-    // track open count
+    // 跟踪 tunnel 数量
     tunnels.on('open', function(tunnel) {
         tunnel_count++;
         debug('tunnel open [total: %d]', tunnel_count);
@@ -145,7 +139,6 @@ Tunnel.prototype.open = function(cb) {
     });
 };
 
-// shutdown tunnels
 Tunnel.prototype.close = function() {
     var self = this;
 
