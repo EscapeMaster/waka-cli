@@ -1,0 +1,31 @@
+#!/usr/bin/env node
+
+let program = require('commander');
+let chalk = require('chalk');
+
+let log = require('../src/log');
+var tunnel = require('../src/tunnel');
+
+/**
+ * Usage.
+ */
+program
+    .option('-p, --port --integer <port>', 'Internal http server port',parseInt)
+    .option('-o, --open', 'opens url in your browser',false)
+    .option('-l, --local-host', 'proxy to a hostname other than localhost')
+    .option('-s， --subdomain','request a named subdomain on the neixin tunnel server (default is random characters)')
+    .option('--protocol <protocol>','use http/https protocol, default is http','http');
+
+/**
+ * Help.
+ */
+
+program.on('--help', function () {
+    log.tips('  Examples:');
+    log.tips();
+    log.tips(chalk.gray('    # create a new project with an official template'));
+    log.tips('    $ waka init webpack my-project');
+    log.tips();
+});
+
+program.parse(process.argv);
