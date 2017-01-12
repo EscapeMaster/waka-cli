@@ -78,12 +78,10 @@ if(exists(projectDirPath)){
     }]).then((answers) => {
         if(answers.ok){
             checkTpl(template,officialTemplate,downloadAndGenerate);
-            //downloadAndGenerate(officialTemplate);
         }
     });
 } else {
     checkTpl(template,officialTemplate,downloadAndGenerate);
-    //downloadAndGenerate(officialTemplate)
 }
 
 /**
@@ -112,9 +110,16 @@ function downloadAndGenerate (template){
         spinner.succeed();
         log.tips();
 
-        generate(projectName,tmp,projectDirPath, (err) => {
+        generate(projectName,tmp,projectDirPath, (err,msg = "") => {
             if(err){
-                log.error('Generated error "%s"',err);
+                log.error(`Generated error: ${err.message.trim()}`);
+            }
+
+            if(msg){
+                let re = /{{[^{}]+}}/g;
+                log.tips('\n' + msg.replace(re,projectName).split(/\r?\n/g).map(function (line) {
+                        return '   ' + line
+                    }).join('\n'));
             }
         });
     });
