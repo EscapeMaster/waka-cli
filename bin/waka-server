@@ -27,3 +27,5 @@ program.on('--help', function () {
     log.tips('    $ waka init webpack my-project');
     log.tips();
 });
+
+program.parse(process.argv);
