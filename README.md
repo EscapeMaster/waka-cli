@@ -7,7 +7,7 @@ A simple CLI scaffolding for front-end projects.
 $ mnpm install @mx/waka -g
 ```
 
-Make sure you have install [mnpm](http://npm.sankuai.com/). If don't, use follows command to install waka:
+Make sure you have install [mnpm](http://npm.sankuai.com/). If don't, use following command to install waka:
 
 ```
 npm install @mx/waka -g --registry=http://r.npm.sankuai.com

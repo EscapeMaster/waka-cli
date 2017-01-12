@@ -1,6 +1,6 @@
 {
   "name": "@mx/waka",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "A simple CLI scaffolding for front-end projects.",
   "bin": {
     "waka": "bin/waka",
@@ -25,9 +25,7 @@
   "homepage": "http://git.sankuai.com/projects/XM/repos/waka-cli/browse#readme",
   "main": "src/index.js",
   "scripts": {
-    "test": "npm run lint && npm run e2e",
-    "lint": "eslint test/e2e/test.js lib bin/* --env mocha",
-    "e2e": "rimraf test/e2e/mock-template-build/*.* && cross-env BABEL_ENV=development mocha test/e2e/test.js --slow 1000 --compilers js:babel-core/register"
+
   },
   "dependencies": {
     "async": "^2.1.4",
