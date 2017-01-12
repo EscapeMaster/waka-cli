@@ -13,9 +13,9 @@ var tunnel = require('../src/tunnel');
 program
     .option('-p, --port --integer <port>', 'Internal http server port',parseInt)
     .option('-o, --open', 'opens url in your browser',false)
-    .option('-l, --local-host', 'proxy to a hostname other than localhost')
+    .option('-l, --local-host <local-host>', 'proxy to a hostname other than localhost')
     .option('-s， --subdomain','request a named subdomain on the neixin tunnel server (default is random characters)')
-    .option('--protocol <protocol>','use http/https protocol, default is http','http');
+    .option('-t,--tunnel-host <tunnel-host>','use default tunnel server default is http://waka.neixin.cn','http://waka.neixin.cn');
 
 /**
  * Help.
@@ -37,13 +37,9 @@ if (!program.port ||typeof program.port !== 'number') {
     program.help();
     process.exit(1);
 }
-if(['http','https'].indexOf(program.protocol)<0){
-    log.error('protocol must be http or https');
-    program.help();
-    process.exit(1);
-}
+
 var opt = {
-    host: `${!!program.http?'http':'https'}://${process.env.TUNNEL_HOST||'tunnel.neixin.cn'}`,
+    host: program['tunnel-host'],
     port: program.port,
     local_host: program['local-host'],
     subdomain: program.subdomain,
