@@ -14,7 +14,7 @@ var Tunnel = function(opt) {
     self._closed = false;
     self._opt = opt || {};
 
-    self._opt.host = self._opt.host || 'http://tunnel.neixin.cn';
+    self._opt.host = self._opt.host || 'http://waka.neixin.cn';
 };
 
 Tunnel.prototype.__proto__ = EventEmitter.prototype;
@@ -38,6 +38,7 @@ Tunnel.prototype._init = function(cb) {
     params.uri = base_uri + ((assigned_domain) ? assigned_domain : '?new');
 
     (function get_url() {
+        console.log('params',params);
         request(params, function(err, res, body) {
             if (err) {
                 console.log('tunnel server offline: ' + err.message + ', retry 1s');

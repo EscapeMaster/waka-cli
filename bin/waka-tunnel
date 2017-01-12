@@ -15,7 +15,7 @@ program
     .option('-o, --open', 'opens url in your browser',false)
     .option('-l, --local-host <local-host>', 'proxy to a hostname other than localhost')
     .option('-s， --subdomain','request a named subdomain on the neixin tunnel server (default is random characters)')
-    .option('-t,--tunnel-host <tunnel-host>','use default tunnel server default is http://waka.neixin.cn','http://waka.neixin.cn');
+    .option('-h,--host <host>','use default tunnel server default is http://waka.neixin.cn','http://waka.neixin.cn');
 
 /**
  * Help.
@@ -39,7 +39,7 @@ if (!program.port ||typeof program.port !== 'number') {
 }
 
 var opt = {
-    host: program['tunnel-host'],
+    host: program.host,
     port: program.port,
     local_host: program['local-host'],
     subdomain: program.subdomain,
@@ -52,7 +52,7 @@ tunnel(opt.port, opt, function(err, tunnel) {
 
     console.log('tunnel url is: %s', tunnel.url);
 
-    if (argv.open) {
+    if (program.open) {
         openurl.open(tunnel.url);
     }
 
