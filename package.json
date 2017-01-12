@@ -45,6 +45,7 @@
     "openurl": "1.1.1",
     "opn": "^4.0.2",
     "ora": "^0.4.0",
+    "portscanner": "^2.1.1",
     "read-metadata": "^1.0.0",
     "request": "^2.79.0",
     "rimraf": "^2.5.4",
