@@ -2,6 +2,8 @@
  * Created by pomy on 10/01/2017.
  */
 
+'use strict';
+
 let Metalsmith = require('metalsmith');
 let ora = require('ora');
 let async = require('async');
@@ -9,34 +11,73 @@ let render = require('consolidate').handlebars.render;
 let path = require('path');
 let chalk = require('chalk');
 
-let log = require('../src/log');
+let log = require('./log');
+let getSetting  = require('./setting');
+let ask = require('./ask');
+let filesFilter = require('./files-filter');
 
-module.exports = function (projectName, src, dest, done) {
-    let spinner = ora({
-        text: "generate project...",
-        color:"blue"
-    }).start();
+/**
+ * Generate a template given a `tmpDir` and `dest`.
+ *
+ * @param {String} projectName
+ * @param {String} tmpDir
+ * @param {String} dest
+ * @param {Function} done
+ */
 
-    let metalsmith = Metalsmith(path.join(src, 'template'));
+module.exports = function (projectName, tmpDir, dest, done) {
+    let setting = getSetting(projectName, tmpDir);
+
+    let metalsmith = Metalsmith(path.join(tmpDir, 'template'));
+
+    let data = Object.assign(metalsmith.metadata(), {
+        destDirName: projectName,
+        inPlace: dest === process.cwd(),
+        noEscape: true
+    });
+
     metalsmith
-    //.use(askQuestions(opts.prompts))
-    //.use(filterFiles(opts.filters))
+        .use(askQuestions(setting))
+        .use(filter(setting.filters))
         .use(template)
         .clean(false)
         .source('.') // start from template root instead of `./src` which is Metalsmith's default for `source`
         .destination(dest)
         .build(function (err) {
+            log.tips();
+
             if(err){
                 return done(err);
             }
-            spinner.text = chalk.green(`Generated ${name}`);
-            spinner.succeed();
 
             //Generated success
-            done(null);
+            ora({
+                text: chalk.green(`${projectName} generated  success`)
+            }).succeed();
+
+            log.tips();
+
+            done(null,setting.completeMessage);
         });
+
+    return data;
 };
 
+//ask user for input info
+function askQuestions (setting) {
+    return (files, metalsmith, done) => {
+        ask(setting.prompts, metalsmith.metadata(), done);
+    }
+}
+
+//files filter
+function filter (filters) {
+    return (files,metalsmith,done) => {
+        filesFilter(filters,files,metalsmith.metadata(),done);
+    }
+}
+
+//generate template
 function template (files,metalsmith,done) {
     let keys = Object.keys(files);
     let metadata = metalsmith.metadata();
