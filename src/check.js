@@ -21,10 +21,6 @@ module.exports = function (template,officialTemplate,done){
         url: 'https://api.github.com/users/waka-templates/repos',
         headers: {
             'User-Agent': 'waka-cli'
-        },
-        auth:{
-            'user': 'dwqs',
-            'pass': 'bf109fcd625bdb3ee127e0f3f97063d527823881'
         }
     }, (err, res, body) => {
         if(err){

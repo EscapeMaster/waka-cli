@@ -1,5 +1,5 @@
 ### waka
-A simple CLI for scaffolding front-end projects.
+A simple CLI scaffolding for front-end projects.
 
 ## Usage
 
@@ -19,12 +19,8 @@ npm install @mx/waka -g --registry=http://r.npm.sankuai.com
 * `waka list` --- list all available official templates from [waka-templates](https://github.com/waka-templates).
 * `waka init template-name your-project-name` --- init your project with specified template.
 
-### Note
-
-Waka currently is developing, don't use it in production.
-
 ### Thanks
-To [vue-cli](https://github.com/vuejs/vue-cli/) for the head start.
+To [metalsmith scaffolder](https://github.com/metalsmith/metalsmith/blob/master/examples/project-scaffolder) for the head start.
 
 
 
