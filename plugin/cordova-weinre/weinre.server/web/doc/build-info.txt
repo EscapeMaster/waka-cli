@@ -1,2 +1,0 @@
-weinre build 2.0.0-pre-IXTYB3NV by waka
-git: bc7f5c32b284ff5ce2de8d693ac02d68b81bc510 远程调试
