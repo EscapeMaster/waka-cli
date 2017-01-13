@@ -54,7 +54,14 @@ function promptWraper (data, key, prompt, done) {
             return true;
         }
     }]).then((anwsers) => {
-        data[key] = anwsers[key];
+        if (Array.isArray(anwsers[key])){
+            data[key] = [];
+            anwsers[key].forEach((choice) => {
+                data[key].push(choice);
+            });
+        } else {
+            data[key] = anwsers[key];
+        }
         done();
     });
 }
