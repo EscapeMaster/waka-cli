@@ -12,7 +12,7 @@ let path = require('path');
 let chalk = require('chalk');
 
 let log = require('./log');
-let getSetting  = require('./setting');
+let getSetting  = require('./settings');
 let ask = require('./ask');
 let filesFilter = require('./files-filter');
 
@@ -32,7 +32,7 @@ module.exports = function (projectName, tmpDir, dest, done) {
 
     let data = Object.assign(metalsmith.metadata(), {
         destDirName: projectName,
-        inPlace: dest === process.cwd(),
+        isCwd: dest === process.cwd(),
         noEscape: true
     });
 
