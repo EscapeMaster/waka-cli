@@ -5,7 +5,7 @@ let chalk = require('chalk');
 let inquirer = require('inquirer');
 let path = require('path');
 let rm = require('rimraf').sync;
-let uid = require('uid');
+let uuidV1 = require('uuid/v1');
 let ora = require('ora');
 let os = require('os');
 let download = require('download-git-repo');
@@ -66,10 +66,6 @@ let projectName = projectDirName === '.' ? path.relative('../', process.cwd()) :
 let projectDirPath = path.resolve(projectDirName || '.');
 let clone = program.clone || false;
 
-let isLocalTemplate = utils.isLocalTemplate(template);
-
-let officialTemplate = 'waka-templates/' + template;
-
 if(utils.isExist(projectDirPath)){
     inquirer.prompt([{
         type: 'confirm',
@@ -79,11 +75,59 @@ if(utils.isExist(projectDirPath)){
         name: 'ok'
     }]).then((answers) => {
         if(answers.ok){
-            //checkTpl(template,officialTemplate,downloadAndGenerate);
+            runTask();
         }
     });
 } else {
-    //checkTpl(template,officialTemplate,downloadAndGenerate);
+    runTask();
+}
+
+function runTask(){
+    let isLocalTemplate = utils.isLocalTemplate(template);
+
+    if(isLocalTemplate){
+        let templatePath = template.startsWith('/') || /^\w:/.test(template)
+            ? template : path.normalize(path.join(process.cwd(), template));
+
+        if(utils.isExist(templatePath)){
+            log.success(`Template is from ${templatePath}`);
+            log.tips();
+
+            generate(projectName,templatePath,projectDirPath, (err,msg = "") => {
+                if(err){
+                    log.error(`Generated error: ${err.message.trim()}`);
+                }
+
+                if(msg){
+                    let re = /{{[^{}]+}}/g;
+                    log.tips('\n' + msg.replace(re,projectName).split(/\r?\n/g).map(function (line) {
+                            return '   ' + line
+                        }).join('\n'));
+                }
+            });
+        } else {
+            log.tips();
+            log.error(`Local template ${template} not found.`);
+        }
+    } else {
+
+        let arr = template.split(path.sep);
+
+        //judge the template whether if match 'sdsd/sdasd' or 'sdasd/sdasd/'
+        if((arr.length === 2 && arr[0] && arr[1]) || (arr.length === 3 && arr[0] && arr[1] && !arr[2])){
+            log.tips(chalk.red(`Local template ${template} not found.`));
+            log.tips();
+
+            //check repo from github.com
+            checkRepos(template,downloadAndGenerate);
+            return;
+        }
+
+
+        //use official templates
+        let officialTemplate = 'waka-templates/' + template;
+        checkTpl(template,officialTemplate,downloadAndGenerate);
+    }
 }
 
 /**
@@ -93,7 +137,7 @@ if(utils.isExist(projectDirPath)){
  */
 
 function downloadAndGenerate (template){
-    let tmp = os.tmpdir() + '/chare-template-' + uid();
+    let tmp = os.tmpdir() + '/waka-template-' + uuidV1();
     let spinner = ora({
         text:`start downloading template: ${template}`,
         color:"blue"
