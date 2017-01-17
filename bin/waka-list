@@ -2,10 +2,26 @@
 
 let chalk = require('chalk');
 let ora = require('ora');
-let request = require('request');
+let axios = require('axios');
 let program = require('commander');
 
 let log = require('../src/log');
+
+/**
+ * Help.
+ */
+
+program.on('--help', function () {
+    log.tips('  Examples:');
+    log.tips();
+    log.tips(chalk.gray('    # list all available official templates from github.com/waka-templates'));
+    log.tips('    $ chare list');
+    log.tips();
+});
+
+if(process.argv[2]){
+    program.help();
+}
 
 /**
  * Padding
@@ -17,59 +33,43 @@ let spinner = ora({
     color:"blue"
 }).start();
 
-process.on('exit', function () {
-    log.tips();
-});
-
-/**
- * Help.
- */
-
-program.on('--help', function () {
-    log.tips('  Examples:');
-    log.tips();
-    log.tips(chalk.gray('    # list all available official templates from github.com/waka-templates'));
-    log.tips('    $ waka list');
-    log.tips();
-});
-
-if(process.argv[2]){
-    program.help();
-}
+process.on('exit', () => log.tips());
 
 /**
  * List repos.
  */
 
-request({
-    url: 'https://api.github.com/users/waka-templates/repos',
+axios({
+    url:  'https://api.github.com/users/waka-templates/repos',
+    method: 'get',
     headers: {
-        'User-Agent': 'waka-cli'
+        'User-Agent': 'chare-cli'
     }
-}, (err, res, body) => {
-    if(err){
-        spinner.text = chalk.red('waka cli:fetching templates list failed.');
-        spinner.fail();
-        process.exit(1);
-    }
-
-    let requestBody = JSON.parse(body);
-    if (Array.isArray(requestBody)) {
+}).then((res) => {
+    if (Array.isArray(res.data)) {
         spinner.text = chalk.green('Available official templates:');
         spinner.succeed();
 
         log.tips();
-        requestBody.forEach(function (repo) {
+        res.data.forEach(function (repo) {
             log.tips(
                 '  ' + chalk.yellow('*') +
                 '  ' + chalk.blue(repo.name) +
                 ' - ' + repo.description);
         });
     } else {
-        spinner.text = chalk.white('waka cli:fetching templates list failed,error message as follows:');
+        spinner.text = chalk.white('chare cli:fetching templates list failed, error message as follows:');
         spinner.fail();
 
         log.tips();
-        log.error(requestBody.message);
+        log.error(`     ${res.statusText}`);
+    }
+}).catch((err) => {
+    let res = err.response;
+    if(err){
+        spinner.text = chalk.white('chare cli:fetching templates list failed, error message as follows:');
+        spinner.fail();
+        log.tips();
+        log.error(`     ${res.statusText}: ${res.data.message}`);
     }
 });
