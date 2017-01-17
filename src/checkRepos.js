@@ -9,42 +9,49 @@
 
 'use strict';
 
-let request = require('request');
+'use strict';
+
+let axios = require('axios');
 let ora = require('ora');
 let chalk = require('chalk');
 
 let log = require('../src/log');
 
-module.exports = function (repo,done){
+module.exports = function (repo){
     let spinner = ora({
         text: 'checking template from github.com...',
         color:"blue"
     }).start();
 
-    request({
+    axios({
         url: `https://github.com/${repo}`,
+        method: 'get',
         headers: {
             'User-Agent': 'waka-cli'
         }
-    }, (err, res) => {
-
-        if(err){
-            spinner.text = chalk.red(`waka cli:checking template ${repo} from github.com failed.`);
-            spinner.fail();
-            process.exit(1);
-        }
-
+    }).then((res) => {
+        spinner.stop();
         log.tips();
 
-        if(res.statusCode === 200){
+        if(res.status === 200){
             spinner.text = chalk.green('Template checked success from github.com.');
             spinner.succeed();
             log.tips();
-            done(repo);
+            return true;
         } else {
-            spinner.stop();
             log.tips();
             log.tips(chalk.red(`Template checked fail: ${repo} not found on github.com`));
+            log.tips();
+            return false;
+        }
+    }).catch((err) => {
+        let res = err.response;
+        if(err){
+            spinner.text = chalk.white(`waka cli:checking template ${repo} from github.com failed.error message as follows:`);
+            spinner.fail();
+
+            log.tips();
+            log.tips(chalk.red(`     ${res.statusText}: ${res.data.message}`));
             log.tips();
             log.tips(`Please check all available official templates by ${chalk.blue('waka list')} in terminal.`);
             process.exit(1);
