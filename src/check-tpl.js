@@ -22,7 +22,7 @@ module.exports = function (template,officialTemplate,done){
     }).start();
 
     axios({
-        url: 'https://api.github.com/users/waka-templates/repos',
+        url:  'https://api.github.com/orgs/waka-templates/repos',
         headers: {
             'User-Agent': 'waka-cli'
         }
