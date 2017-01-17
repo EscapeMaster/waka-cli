@@ -9,7 +9,7 @@ let axios = require('axios');
 let ora = require('ora');
 let chalk = require('chalk');
 
-let log = require('../src/log');
+let log = require('./log');
 
 module.exports = function (template,officialTemplate,done){
     log.tips();
@@ -17,7 +17,7 @@ module.exports = function (template,officialTemplate,done){
     template = template.indexOf('/') === -1 ? template : template.split('/')[0];
 
     let spinner = ora({
-        text: "checking template...",
+        text: "checking official template...",
         color:"blue"
     }).start();
 
@@ -42,6 +42,7 @@ module.exports = function (template,officialTemplate,done){
                 done(officialTemplate);
             } else {
                 spinner.stop();
+
                 log.tips(`Failed to download template ${chalk.red(template)}: ${chalk.red(template)} doesn\'t exist.`);
                 log.tips();
                 log.tips(`Please check all available official templates by ${chalk.blue('waka list')} in terminal.`);
@@ -58,6 +59,7 @@ module.exports = function (template,officialTemplate,done){
         if(err){
             spinner.text = chalk.white('waka cli:checking official template failed, error message as follows:');
             spinner.fail();
+
             log.tips();
             log.error(`     ${res.statusText}: ${res.data.message}`);
         }
