@@ -15,7 +15,7 @@ program.on('--help', function () {
     log.tips('  Examples:');
     log.tips();
     log.tips(chalk.gray('    # list all available official templates from github.com/waka-templates'));
-    log.tips('    $ chare list');
+    log.tips('    $ waka list');
     log.tips();
 });
 
@@ -43,7 +43,7 @@ axios({
     url:  'https://api.github.com/users/waka-templates/repos',
     method: 'get',
     headers: {
-        'User-Agent': 'chare-cli'
+        'User-Agent': 'waka-cli'
     }
 }).then((res) => {
     if (Array.isArray(res.data)) {
@@ -58,7 +58,7 @@ axios({
                 ' - ' + repo.description);
         });
     } else {
-        spinner.text = chalk.white('chare cli:fetching templates list failed, error message as follows:');
+        spinner.text = chalk.white('waka cli:fetching templates list failed, error message as follows:');
         spinner.fail();
 
         log.tips();
@@ -67,7 +67,7 @@ axios({
 }).catch((err) => {
     let res = err.response;
     if(err){
-        spinner.text = chalk.white('chare cli:fetching templates list failed, error message as follows:');
+        spinner.text = chalk.white('waka cli:fetching templates list failed, error message as follows:');
         spinner.fail();
         log.tips();
         log.error(`     ${res.statusText}: ${res.data.message}`);

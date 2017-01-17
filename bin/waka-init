@@ -11,7 +11,8 @@ let os = require('os');
 let download = require('download-git-repo');
 
 let log = require('../src/log');
-let checkTpl = require('../src/check');
+let checkTpl = require('../src/checkTpl');
+let checkRepos = require('../src/checkRepos');
 let generate = require('../src/generate');
 let utils = require('../src/utils');
 
