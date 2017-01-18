@@ -38,7 +38,7 @@ $ waka init vue-webpack my-project
 * `waka tunnel` --- 创建调试管道
 * `waka token -u your-github-user-name -p your-personal-token` --- 设置 auth token，用于 BA 认证。
 
-`waka list` 和 `waka init` 命令都会向 `api.github.com` 发起请求。在设置 auth token 的情况下，github限制的请求频率是 60次/小时，超过次数之后，github会拒绝请求，返回403。
+`waka list` 和 `waka init` 命令都会向 `api.github.com` 发起请求。在没设置 auth token 的情况下，github限制的请求频率是 60次/小时，超过次数之后，github会拒绝请求，返回403。
 
 而设置token后，请求频率是5000次/小时。
 
