@@ -1,84 +1,95 @@
+#### [README for English](http://git.sankuai.com/projects/XM/repos/waka-cli/browse/README_en.md)
+
 ## waka
 A simple CLI scaffolding for front-end projects.
 
-### Installation
-Prerequisites: [Node.js](https://nodejs.org/en/) (>=6.x) and [Git](https://git-scm.com/).
+### 安装
+waka 依赖 [Node.js](https://nodejs.org/en/) (>=6.x)：
 
 ```
 $ mnpm install @mx/waka -g
 ```
 
-Make sure you have install [mnpm](http://npm.sankuai.com/). If don't, use following command to install waka:
+如果没安装 [mnpm](http://npm.sankuai.com/)，就用下面的命令安装 waka:
 
 ```
 $ npm install @mx/waka -g --registry=http://r.npm.sankuai.com
 ```
 
-### Usage
+### 用法
 ```
 $ waka init <template-name> <project-name>
 ```
 
-Example:
+例如:
 
 ```
 $ waka init vue-webpack my-project
 ```
 
-The above command pulls the template from [waka-templates/vue-webpack](https://github.com/waka-templates/vue-webpack), prompts for some information, and generates the project at `./my-project/`
+上述命令会从 [waka-templates/vue-webpack](https://github.com/waka-templates/vue-webpack) 拉取 `vue-webpack` 模板来初始化你的 `./my-project/` 项目。
 
 
-### Command
+### 基本命令
 
-* `waka` or `waka -h` --- find help info for waka.
-* `waka list` --- list all available official templates from [waka-templates](https://github.com/waka-templates).
-* `waka init template-name your-project-name` --- init your project with specified template.
-* `waka tunnel` --- create a tunnel for debug
-* `waka token -u your-github-user-name -p your-personal-token` --- set auth token to get a higher rate limit of api requests. Check out the [documentation](https://developer.github.com/v3/#rate-limiting) for more details.
+* `waka` or `waka -h` --- 查看 waka 的帮助信息
+* `waka list` --- 列举所有官方模板。官方模板地址：[waka-templates](https://github.com/waka-templates).
+* `waka init template-name your-project-name` --- 用指定的模板初始化你的项目.
+* `waka tunnel` --- 创建调试管道
+* `waka token -u your-github-user-name -p your-personal-token` --- 设置 auth token，用于 BA 认证。
 
->Note: Check out the [documentation](https://developer.github.com/v3/auth/#basic-authentication) for more details about Basic Authentication.
+`waka list` 和 `waka init` 命令都会向 `api.github.com` 发起请求。在设置 auth token 的情况下，github限制的请求频率是 60次/小时，超过次数之后，github会拒绝请求，返回403。
 
-## Templates
-Waka provides some simple official template, if it can't meet your needs, you also can specified template from others' repo or use your local template.
+而设置token后，请求频率是5000次/小时。
 
-### Official Templates
-All official project templates are repos in the [waka-templates organization](https://github.com/waka-templates). When a new template is added to the organization, you will be able to run `waka init <template-name> <project-name>` to use that template. You can also run `waka list` to see all available official templates.
+相关文档：
+
+* [Rate Limiting](https://developer.github.com/v3/#rate-limiting)
+* [Basic Authentication](https://developer.github.com/v3/auth/#basic-authentication)
+
+## 模板
+Waka 提供了一些简单的官方模板。此外，也可以使用github上的第三方仓库作为模板或者使用自身本地的模板来初始化项目。
+
+### 官方模板
+所有的官方模板都可以从 [waka-templates organization](https://github.com/waka-templates) 上找到. 当有新模板添加时， 你能通过 `waka init <template-name> <project-name>` 来使用该模板， 也可以运行  `waka list` 来查看所有的模板.
+
+即将能用的模板如下:
+
+* [vue-webpack](https://github.com/waka-templates/vue-webpack) --- A simple template webpack + vuejs setup for projects
+* [zepto-webpack](https://github.com/waka-templates/zepto-webpack) --- A simple template webpack + zepto setup for projects
+* [react-webpack](https://github.com/waka-templates/react-webpack) ---  A simple template webpack + react setup for projects
 
 Additional, you also can check [template simple](https://github.com/waka-templates/template-simple) to write owner customized template.
 
-### Templates from github
-It's unlikely to make everyone happy with the official templates. You can simply fork an official template and then use it via `waka-cli` with:
+### 利用他人的仓库作模板
+waka 允许使用他人的 github repo 作为项目的模板:
 
 ```
 waka init username/repo my-project
 ```
 
-Where `username/repo` is the GitHub repo shorthand for your fork.
+运行上述命令之后，将会使用 `username/repo` 作为模板来初始化你的项目。
 
-### Local Templates
+### 本地模板
 
-Instead of a GitHub repo, you can also use a template on your local file system:
+waka 支持使用本地模板初始化项目:
 
 ```
-waka init ~/fs/path/to-custom-template my-project
+waka init ~/local/template/path my-project
 ```
 
 There is a [guide](https://github.com/waka-templates/template-simple) for to writing owner customized template.
 
 ## Note
 
-In the [guide](https://github.com/waka-templates/template-simple), we said that the template has its directory structure like it **must** have a template directory that holds the template files.
+如果你想为 waka 提供官方模板，请参照这份模板书写指南：[官方模板书写指南](https://github.com/waka-templates/template-simple)。
 
-But the template you used doesn't meet the rules, waka will use the root directory of repo or local template.
+在指南中，官方模板必须符合两条规则：
 
-Example:
+* 模板根目录下有 `template` 目录
+* 模板根目录下有 `meta.{js,json}` 文件
 
-```
-waka init repo/test test
-```
-
-If template directory(which path is like `test/template`) doesn't exist in the root directory of `test`, waka will use `test` as the template to init your project.
-
+**当你使用他人的github仓库或者本地模板时，如果github仓库或者本地模板的根目录没有 `template` 目录， waka 将会使用该仓库或者本地模板所在的目录作为渲染模板。**
 
 ## Thanks
 To [metalsmith scaffolder](https://github.com/metalsmith/metalsmith/blob/master/examples/project-scaffolder) for the head start.
