@@ -53,6 +53,7 @@ module.exports = {
             headers: {
                 'User-Agent': 'waka-cli'
             },
+            timeout: 7000,
             auth:{}
         };
 
