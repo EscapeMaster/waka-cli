@@ -53,8 +53,9 @@ module.exports = function (template,officialTemplate,done){
             log.error(`     ${res.statusText}: ${res.data.message}`);
         }
     }).catch((err) => {
-        let res = err.response;
         if(err){
+            let res = err.response;
+
             spinner.text = chalk.white('waka cli:checking official template failed, error message as follows:');
             spinner.fail();
             log.tips();

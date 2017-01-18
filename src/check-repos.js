@@ -55,8 +55,9 @@ module.exports = function (repo,done){
             process.exit(1);
         }
     }).catch((err) => {
-        let res = err.response;
         if(err){
+            let res = err.response;
+
             oraer.text = chalk.white(`chare cli:checking template ${repo} failed from github.com, error message as follows:`);
             oraer.fail();
             log.tips();
