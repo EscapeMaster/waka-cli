@@ -58,7 +58,7 @@ module.exports = {
         };
 
         let binPath = this.wakaBinPath();
-        let tokenPath = path.normalize(path.join(binPath,'../../','lib/node_modules/waka/src/token.json'));
+        let tokenPath = path.normalize(path.join(binPath,'../../','lib/node_modules/@mx/waka/src/token.json'));
 
         if(this.isExist(tokenPath)){
             let authInfo = require(tokenPath);

@@ -65,7 +65,7 @@ function setToken () {
 
     let binPath = utils.wakaBinPath();
 
-    let tokenPath = path.normalize(path.join(binPath,'../../','lib/node_modules/waka/src/token.json'));
+    let tokenPath = path.normalize(path.join(binPath,'../../','lib/node_modules/@mx/waka/src/token.json'));
 
     fs.writeFile(tokenPath, JSON.stringify(token), {encoding: "utf-8"}, (err) => {
         log.tips();
