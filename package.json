@@ -1,6 +1,6 @@
 {
   "name": "@mx/waka",
-  "version": "2.2.12",
+  "version": "2.2.13",
   "description": "A simple CLI scaffolding for front-end projects.",
   "bin": {
     "waka": "bin/waka",
