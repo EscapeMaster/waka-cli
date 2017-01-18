@@ -33,6 +33,7 @@ The above command pulls the template from [waka-templates/vue-webpack](https://g
 * `waka` or `waka -h` --- find help info for waka.
 * `waka list` --- list all available official templates from [waka-templates](https://github.com/waka-templates).
 * `waka init template-name your-project-name` --- init your project with specified template.
+* `waka tunnel` --- create a tunnel for debug
 * `waka token -u your-github-user-name -p your-personal-token` --- set auth token to get a higher rate limit of api requests. Check out the [documentation](https://developer.github.com/v3/#rate-limiting) for more details.
 
 >Note: Check out the [documentation](https://developer.github.com/v3/auth/#basic-authentication) for more details about Basic Authentication.
