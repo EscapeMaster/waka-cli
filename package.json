@@ -6,7 +6,8 @@
     "waka": "bin/waka",
     "waka-init": "bin/waka-init",
     "waka-list": "bin/waka-list",
-    "waka-tunnel": "bin/waka-tunnel"
+    "waka-tunnel": "bin/waka-tunnel",
+    "waka-token": "bin/waka-token"
   },
   "repository": {
     "type": "git",

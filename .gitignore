@@ -42,3 +42,4 @@ jspm_packages
 !/views/online/index.html
 /views/online
 public/dist
+./src/token.json
