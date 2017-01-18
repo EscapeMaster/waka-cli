@@ -6,6 +6,7 @@ let axios = require('axios');
 let program = require('commander');
 
 let log = require('../src/log');
+let utils = require('../src/utils');
 
 /**
  * Help.
@@ -39,13 +40,9 @@ process.on('exit', () => log.tips());
  * List repos.
  */
 
-axios({
-    url:  'https://api.github.com/orgs/waka-templates/repos',
-    method: 'get',
-    headers: {
-        'User-Agent': 'waka-cli'
-    }
-}).then((res) => {
+const REQUEST_URL = 'https://api.github.com/orgs/waka-templates/repos';
+
+axios(utils.getAuthInfo(REQUEST_URL)).then((res) => {
     if (Array.isArray(res.data)) {
         spinner.text = chalk.green('Available official templates:');
         spinner.succeed();

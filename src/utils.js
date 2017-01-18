@@ -44,5 +44,28 @@ module.exports = {
         } catch (e) {
             log.error(`exec which waka error: ${e.message}`);
         }
+    },
+
+    getAuthInfo(url){
+        let config = {
+            url:  url,
+            method: 'get',
+            headers: {
+                'User-Agent': 'waka-cli'
+            },
+            auth:{}
+        };
+
+        let binPath = this.wakaBinPath();
+        let tokenPath = path.normalize(path.join(binPath,'../../','lib/node_modules/waka/src/token.json'));
+
+        if(this.isExist(tokenPath)){
+            let authInfo = require(tokenPath);
+            config.auth = authInfo;
+        } else {
+            delete config['auth'];
+        }
+
+        return config;
     }
 };

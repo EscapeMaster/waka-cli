@@ -16,6 +16,7 @@ let ora = require('ora');
 let chalk = require('chalk');
 
 let log = require('./log');
+let utils = require('../src/utils');
 
 module.exports = function (repo,done){
     let oraer = ora({
@@ -25,13 +26,9 @@ module.exports = function (repo,done){
 
     let repoInfo = repo.split('/');
 
-    axios({
-        url: `https://api.github.com/users/${repoInfo[0]}/repos`,
-        method: 'get',
-        headers: {
-            'User-Agent': 'waka-cli'
-        }
-    }).then((res) => {
+    const REQUEST_URL = `https://api.github.com/users/${repoInfo[0]}/repos`;
+
+    axios(utils.getAuthInfo(REQUEST_URL)).then((res) => {
         log.tips();
 
         if(res.status === 200 && Array.isArray(res.data) && res.data.length){

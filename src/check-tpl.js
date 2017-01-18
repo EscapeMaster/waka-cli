@@ -10,6 +10,9 @@ let ora = require('ora');
 let chalk = require('chalk');
 
 let log = require('./log');
+let utils = require('../src/utils');
+
+const REQUEST_URL = 'https://api.github.com/orgs/waka-templates/repos';
 
 module.exports = function (template,officialTemplate,done){
     log.tips();
@@ -21,12 +24,7 @@ module.exports = function (template,officialTemplate,done){
         color:"blue"
     }).start();
 
-    axios({
-        url:  'https://api.github.com/orgs/waka-templates/repos',
-        headers: {
-            'User-Agent': 'waka-cli'
-        }
-    }).then((res) => {
+    axios(utils.getAuthInfo(REQUEST_URL)).then((res) => {
         if (Array.isArray(res.data)) {
             let reposName = [];
 
