@@ -73,7 +73,7 @@ module.exports = function (repo,done){
                 if(res){
                     log.tips(chalk.red(`     ${res.statusText}: ${res.headers.status}`));
                     log.tips();
-                    log.tips(`Please check all available official templates by ${chalk.blue('chare list')} in terminal.`);
+                    log.tips(`Please check all available official templates by ${chalk.blue('waka list')} in terminal.`);
                 } else {
                     log.error(`     ${err.message}`);
                 }
