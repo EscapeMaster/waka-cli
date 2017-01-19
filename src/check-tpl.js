@@ -60,7 +60,7 @@ module.exports = function (template,officialTemplate,done){
             spinner.fail();
             log.tips();
 
-            if(res.status === 403){
+            if(res && res.status === 403){
                 //api rate limit:https://developer.github.com/v3/#rate-limiting
                 log.tips(chalk.red(`     ${res.statusText}: ${res.data.message}\n\ndocumentation: ${res.data.documentation_url}`));
                 log.tips();
@@ -68,7 +68,10 @@ module.exports = function (template,officialTemplate,done){
                 log.tips();
                 log.tips('     documentation: https://developer.github.com/v3/auth/#basic-authentication');
             } else {
-                log.error(`     ${res.statusText}: ${res.data.message}`);
+                if(res){
+                    log.error(`     ${res.statusText}: ${res.data.message}`);
+                }
+                log.error(`     ${err.message}`);
             }
         }
     });
