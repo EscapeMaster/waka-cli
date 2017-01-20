@@ -48,7 +48,7 @@ module.exports = function (done) {
                 log.tips();
                 log.tips(`  latest:    ${chalk.green(latest)}`);
                 log.tips(`  installed:    ${chalk.red(local)}`)
-                log.tips(`  update waka latest: npm update -g waka`);
+                log.tips(`  update waka latest: mnpm/npm update -g waka`);
                 log.tips();
             }
             done();

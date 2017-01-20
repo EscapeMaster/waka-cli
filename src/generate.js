@@ -17,6 +17,7 @@ let log = require('./log');
 let getSetting  = require('./settings');
 let ask = require('./ask');
 let filesFilter = require('./files-filter');
+let utils = require('./utils');
 
 /**
  * Generate a template given a `tmpDir` and `dest`.
@@ -28,15 +29,28 @@ let filesFilter = require('./files-filter');
  */
 
 module.exports = function (projectName, tmpDir, dest, done) {
-    let setting = getSetting(projectName, tmpDir);
+    let metalsmith;
 
-    let metalsmith = Metalsmith(path.join(tmpDir, 'template'));
+    let setting = getSetting(projectName, tmpDir);
+    let tplPath = path.join(tmpDir, 'template');
+
+    if(utils.isExist(tplPath)){
+        metalsmith = Metalsmith(tplPath);
+    } else {
+        metalsmith = Metalsmith(tmpDir);
+    }
 
     let data = Object.assign(metalsmith.metadata(), {
         destDirName: projectName,
         isCwd: dest === process.cwd(),
         noEscape: true
     });
+
+    ora({
+        text: `generating project ${projectName}...`,
+    }).stopAndPersist(chalk.blue('**'));
+
+    log.tips();
 
     metalsmith
         .use(askQuestions(setting))
@@ -85,10 +99,13 @@ function template (files,metalsmith,done) {
     let metadata = metalsmith.metadata();
 
     async.each(keys, (file, next) => {
-        let str = files[file].contents.toString();
 
-        // do not attempt to render files that do not have mustaches
-        if (!/{{([^{}]+)}}/g.test(str)) {
+        //judge file is in node_modules directory
+        let inNodeModules = /node_modules/.test(file);
+        let str = inNodeModules ? '' : files[file].contents.toString();
+
+        // do not attempt to render files that do not have mustaches and is in node_modules directory
+        if (inNodeModules || !/{{([^{}]+)}}/g.test(str)) {
             return next();
         }
 
