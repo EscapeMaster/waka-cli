@@ -1,5 +1,5 @@
 {
-  "name": "@mx/waka",
+  "name": "waka-cli",
   "version": "2.2.15",
   "description": "A simple CLI scaffolding for front-end projects.",
   "bin": {
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://git.sankuai.com/projects/XM/repos/waka-cli/browse"
+    "url": ""
   },
   "keywords": [
     "waka",
@@ -21,9 +21,9 @@
   "author": "mx",
   "license": "MIT",
   "bugs": {
-    "url": "http://git.sankuai.com/projects/XM/repos/waka-cli/browse"
+    "url": ""
   },
-  "homepage": "http://git.sankuai.com/projects/XM/repos/waka-cli/browse#readme",
+  "homepage": "",
   "main": "src/index.js",
   "scripts": {
 
